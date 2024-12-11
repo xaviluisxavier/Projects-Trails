@@ -67,4 +67,6 @@ class Trails:
             self.description = description
             return None
     def format(self):
-        return f"{self.get_id()};{self.get_name()};{self.get_island()};{self.get_council()};{self.get_coordinates()};{self.get_difficulty()};{self.get_extension()};{self.get_form()};{self.get_description()}"
+        return (f"{self.get_id()};{self.get_name()};{self.get_island()};{self.get_council()}"
+                f";{self.get_coordinates()};{self.get_difficulty()};{self.get_extension()};"
+                f"{self.get_form()};{self.get_description()}")

@@ -10,19 +10,31 @@ class Trails_Menu:
             print('3 - Remove Trails')
             print('4 - View Trail')
             print('5 - Back')
-            option = int(input('Enter your choice: '))
-            if 0 < option < 6:
-                match option:
-                    case 1:
-                        self.trail_manager.create_Trail()  # Call create_Trail on the instance
-                    case 2:
-                        self.trail_manager.Edit_Trail()
-                    case 3:
-                        self.trail_manager.remove_Trail()
-                    case 4:
-                        self.trail_manager.show_Trail()
-                    case 5:
-                        break
-            else:
-                print("Invalid option. Please try again.")  # Provide feedback for invalid options
 
+            while True:
+                option = input('Enter your choice: ').strip()
+                if option:
+                    try:
+                        option = int(option)
+                        if 1 <= option <= 5:
+                            break
+                        else:
+                            print('Invalid option. Please choose a number between 1 and 5.')
+                    except ValueError:
+                        print('Invalid input. Please enter a number.')
+                else:
+                    print('Input cannot be empty. Please enter a number.')
+
+            match option:
+                case 1:
+                    self.trail_manager.create_Trail()
+                case 2:
+                    self.trail_manager.Edit_Trail()
+                case 3:
+                    self.trail_manager.remove_Trail()
+                case 4:
+                    self.trail_manager.show_Trail()
+                case 5:
+                    break
+
+        print("Returning to main menu.")  # Feedback when exiting the Trails Menu

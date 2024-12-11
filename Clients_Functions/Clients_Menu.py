@@ -25,3 +25,4 @@ class Visits:
                 if str(id) in line.strip().split(";")[8]:
                     self.trails = line.strip().split(";")[0]
         print(f"Trails {self.trails} founded")
+
