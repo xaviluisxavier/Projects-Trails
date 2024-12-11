@@ -3,10 +3,6 @@ from datetime import datetime
 import json
 
 a = Schedules
-from Schedules_Functions import Schedules
-from datetime import datetime
-import json
-
 
 class SchedulesManager:
     def __init__(self, guide_found="", trail_found="", schedule="schedule.csv", trails="trails.csv",

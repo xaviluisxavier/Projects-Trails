@@ -3,6 +3,7 @@ from Schedules_Functions import Schedules_manager as sm
 from Guide_Functions import guide_menu as gm
 from Clients_Functions import Clients_Manager as cm
 from Report_Function import reports as rg
+from Report_Function import graph as gh
 
 while True:
     print('\nMENU')
@@ -37,9 +38,9 @@ while True:
         case 4:
             sm.SchedulesManager().CheckIn_and_Out()
         case 5:
-            rg.ReportGenerator().generate_report()
+            rg.ActivityReport().generate_report()
         case 6:
-            pass
+            gh.ReportPlotter().load_and_plot()
         case 7:
             print("Exiting the program.")
             break

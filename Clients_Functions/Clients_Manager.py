@@ -70,7 +70,7 @@ class Clients_Manager:
             break
 
         while True:
-            print("1. (very dissatisfied), 2 (dissatisfied), 3 (indifferent), 4 (satisfied) and 5 (very satisfied5")
+            print("1. (very dissatisfied), 2 (dissatisfied), 3 (indifferent), 4 (satisfied) and 5 (very satisfied)")
             choice = input("Insert the number corresponding to your satisfaction -> ")
             if choice not in sat_list:
                 print("Invalid number. Please try again.")
