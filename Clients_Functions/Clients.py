@@ -58,6 +58,6 @@ class Visits:
         return None
 
     def format(self):
-        return (f"{self.trail};{self.name};{self.country};{self.gender};{self.age_group};"
-                f"{self.date};{self.satisfaction};{self.date};\n")
+        return (f"{self.name};{self.country};{self.gender};{self.age_group};"
+                f"{self.satisfaction};{self.date}\n")
 

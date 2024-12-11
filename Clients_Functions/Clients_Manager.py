@@ -10,7 +10,7 @@ class Clients_Manager:
 
     def saveVisits(self, tr):
         file = open(self.Visits, "a", encoding="utf-8")
-        file.write(tr)
+        file.write(tr + "\n")
 
     def find_Trail(self):
         while True:
@@ -86,6 +86,6 @@ class Clients_Manager:
             except ValueError:
                 print("Invalid check IN format. Please use 'd/m/y'.")
 
-        Visits = c.Visits(name,country,gender,age_group,date,satis,self.trails)
+        Visits = c.Visits(name,country,gender,age_group,satis,date,self.trails)
         self.saveVisits(Visits.format())
         print(f"Client {name} Added.")
