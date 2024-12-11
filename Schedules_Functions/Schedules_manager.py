@@ -42,26 +42,29 @@ class SchedulesManager:
 
     def findGuide(self):
         while True:
+            # Prompt user for guide ID
             guide_ID_input = input("Enter guide ID: ").strip()
             if not guide_ID_input:
                 print("Guide ID cannot be empty. Please try again.")
                 continue
-            try:
-                guide_ID = int(guide_ID_input)
-                break
-            except ValueError:
-                print("Invalid guide ID. Please enter a number.")
+
+            # Keep the guide ID as a string
+            guide_ID = guide_ID_input
+            break
 
         guide_found = False
+        # Open the JSON file and load data
         with open(self.guide, 'r', encoding='utf-8') as file:
             data = json.load(file)
 
+        # Search for the guide by ID
         for guide in data:
-            if guide["id"] == guide_ID:
+            if guide["id"] == guide_ID:  # Compare as strings
                 self.found_Guide = guide["name"]
                 guide_found = True
-                break  # Saia do loop assim que encontrar o guia
+                break  # Exit loop upon finding the guide
 
+        # Output result
         if guide_found:
             print(f"Guide found: {self.found_Guide}")
         else:
@@ -73,18 +76,21 @@ class SchedulesManager:
 
         while True:
             try:
-                check_IN = input("Check IN: (d/m/y): ")
-                check_IN = datetime.strptime(check_IN, "%m/%d/%Y")
+                check_IN = input("Check IN (d/m/y H:M): ")  # Prompt for date and time
+                check_IN = datetime.strptime(check_IN, "%m/%d/%Y %H:%M")  # Include time in format
                 break
             except ValueError:
-                print("Invalid check IN")
+                print("Invalid check IN format. Please use 'd/m/y H:M'.")
+
         while True:
             try:
-                check_OUT = input("Check OUT: (d/m/y): ")
-                check_OUT = datetime.strptime(check_OUT, "%m/%d/%Y")
+                check_OUT = input("Check OUT (d/m/y H:M): ")  # Prompt for date and time
+                check_OUT = datetime.strptime(check_OUT, "%m/%d/%Y %H:%M")  # Include time in format
                 break
             except ValueError:
-                print("Invalid check IN")
-        schedule = a.Schedules(self.found_Trail,self.found_Guide,check_IN,check_OUT)
+                print("Invalid check OUT format. Please use 'd/m/y H:M'.")
+
+        schedule = a.Schedules(self.find_Trail(), self.findGuide(), check_IN, check_OUT)
         self.save_schedules(schedule.format())
         print("Schedule added.")
+

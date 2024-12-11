@@ -1,5 +1,6 @@
 from Trails_Functions import trail_menu as mt
 from Schedules_Functions import Schedules_manager as sm
+from Guide_Functions import guide_menu as gm
 
 while True:
     print('\nMENU')
@@ -25,7 +26,7 @@ while True:
         case 1:
             mt.Trails_Menu()
         case 2:
-            print("Manage Guides functionality not implemented yet.")
+            gm.Guides_Menu()
         case 3:
             sm.SchedulesManager().CheckIn_and_Out()
         case 4:
