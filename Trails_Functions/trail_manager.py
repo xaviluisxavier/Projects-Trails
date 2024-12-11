@@ -1,68 +1,72 @@
-from Trails_Functions import trail
-# tf = trail file
-# st = save file
-t = trail
+from Trails_Functions import trail  # Import the trail class from the Trails_Functions module
+
+t = trail  # Create an instance of the trail class
 
 class TrailManager:
-    def __init__(self,tf = "trails.csv", st = trail):
-        self.trail = tf
-        self.trails = st
+    def __init__(self, tf="trails.csv", st=trail):
+        """Initialize the TrailManager with file names for trails and schedules."""
+        self.trail = tf  # Set the filename for trails
+        self.trails = st  # Set the filename for saving trails (not used correctly)
 
-    def save_Trails(self,st):
+    def save_Trails(self, st):
+        """Append a new trail entry to the trails file."""
         with open(self.trail, "a", encoding="utf-8") as file:
-            file.write(st + '\n')
+            file.write(st + '\n')  # Write the trail entry followed by a newline for proper CSV formatting
 
     def create_Trail(self):
-        print("\n--- Create New Trail ---")
-        diff_list = {"1": "Easy", "2": "Medium", "3": "Hard"}
-        ext_list = {"1": "0-5km", "2": "5-10km", "3": "10-15km", "4": "15-30km", "5": "+30km"}
-        form_list = {"1": "Circular", "2": "Linear"}
+        """Collect information to create a new trail and save it."""
+        print("\n--- Create New Trail ---")  # Header for creating a new trail
+        diff_list = {"1": "Easy", "2": "Medium", "3": "Hard"}  # Difficulty levels mapping
+        ext_list = {"1": "0-5km", "2": "5-10km", "3": "10-15km", "4": "15-30km",
+                    "5": "+30km"}  # Trail extensions mapping
+        form_list = {"1": "Circular", "2": "Linear"}  # Trail forms mapping
 
         while True:
-            id_input = input('Trail ID -> ').strip()
+            id_input = input('Trail ID -> ').strip()  # Prompt for trail ID
             if not id_input:
-                print("ID cannot be empty. Please try again.")
+                print("ID cannot be empty. Please try again.")  # Validate input
                 continue
             try:
-                id = int(id_input)
-                break
+                id = int(id_input)  # Convert input to an integer
+                break  # Exit loop if conversion is successful
             except ValueError:
-                print("ID must be a number. Please try again.")
+                print("ID must be a number. Please try again.")  # Handle non-integer input
 
         while True:
-            name = input('Trail name -> ').strip()
+            name = input('Trail name -> ').strip()  # Prompt for trail name
             if not name:
-                print('Name cannot be empty. Please enter a valid trail name.')
+                print('Name cannot be empty. Please enter a valid trail name.')  # Validate input
                 continue
             break
 
         while True:
-            island = input('Island -> ').strip()
+            island = input('Island -> ').strip()  # Prompt for island name
             if not island:
-                print('Island cannot be empty. Please enter a valid island name.')
+                print('Island cannot be empty. Please enter a valid island name.')  # Validate input
                 continue
             break
 
         while True:
-            council = input('Municipal Council -> ').strip()
+            council = input('Municipal Council -> ').strip()  # Prompt for municipal council name
             if not council:
-                print('Council cannot be empty. Please enter a valid council name.')
+                print('Council cannot be empty. Please enter a valid council name.')  # Validate input
                 continue
             break
 
         while True:
-            coordinates = input('GPS Coordinates -> ').strip()
+            coordinates = input('GPS Coordinates -> ').strip()  # Prompt for GPS coordinates
             if not coordinates:
-                print('Coordinates cannot be empty. Please enter valid GPS coordinates.')
+                print('Coordinates cannot be empty. Please enter valid GPS coordinates.')  # Validate input
                 continue
             break
 
         while True:
-            choice = input("Insert the Difficulty (1.Easy, 2.Medium, 3.Hard) -> ").strip()
+            choice = input(
+                "Insert the Difficulty (1.Easy, 2.Medium, 3.Hard) -> ").strip()  # Prompt for difficulty level
             if choice not in diff_list:
                 print("Invalid difficulty. Please try again.")
                 continue
-            difficulty = diff_list[choice]
+            difficulty = diff_list[choice]  # Get corresponding difficulty from dictionary
             break
 
         while True:
@@ -83,20 +87,23 @@ class TrailManager:
             break
 
         while True:
-            description = input('Brief description -> ').strip()
+            description = input('Brief description -> ').strip()  # Prompt for a brief description of the trail
             if not description:
-                print('Description cannot be empty. Please enter a valid description.')
+                print('Description cannot be empty. Please enter a valid description.')  # Validate input
                 continue
             break
 
-        # Create an instance of Trails and save it
+        # Create an instance of Trails and save it using the collected information
         trail_instance = t.Trails(id, name, island, council, coordinates, difficulty, extension, form, description)
-        self.save_Trails(trail_instance.format())
-        print(f"Trail: {name} with the ID: {id} created successfully")
+
+        self.save_Trails(trail_instance.format())  # Save the formatted trail entry to the CSV file
+
+        print(f"Trail: {name} with the ID: {id} created successfully")  # Confirm successful creation of the trail
 
     def remove_Trail(self):
+        """Remove a trail by its ID."""
         while True:
-            id_input = input('Trail ID to remove -> ').strip()
+            id_input = input('Trail ID to remove -> ').strip()  # Prompt for ID of the trail to remove
             if not id_input:
                 print("ID cannot be empty. Please try again.")
                 continue
@@ -105,21 +112,26 @@ class TrailManager:
                 break
             except ValueError:
                 print("ID must be a number. Please try again.")
-        trail_found = False
+
+        trail_found = False  # Flag to check if the trail was found
+
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
+
         with open(self.trail, "w", encoding="utf-8") as file:
             for line in lines:
                 if str(id) != line.strip().split(";")[0]:
                     file.write(line)
                 else:
                     trail_found = True
+
         if trail_found:
             print(f"Trail with ID: {id} removed successfully.")
         else:
             print(f"No trail found with ID: {id}.")
 
     def Edit_Trail(self):
+        """Edit details of an existing trail."""
         while True:
             id_input = input('Trail ID to edit -> ').strip()
             if not id_input:
@@ -130,12 +142,17 @@ class TrailManager:
                 break
             except ValueError:
                 print("ID must be a number. Please try again.")
+
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
+
         trail_found = False
+
         for i, line in enumerate(lines):
             if str(id) == line.split(";")[0]:
                 trail_found = True
+
+                # Display current details of the found trail
                 trail_data = line.strip().split(";")
                 print("\nCurrent trail details:")
                 print(f"1. Name: {trail_data[1]}")
@@ -146,32 +163,43 @@ class TrailManager:
                 print(f"6. Extension: {trail_data[6]}")
                 print(f"7. Form: {trail_data[7]}")
                 print(f"8. Description: {trail_data[8]}")
+
                 while True:
                     choice = input("Enter the number of the field to edit (1-8): ").strip()
                     if choice in ['1', '2', '3', '4', '5', '6', '7', '8']:
                         while True:
                             new_value = input("Enter new value: ").strip()
                             if new_value:
-                                trail_data[int(choice)] = new_value
-                                lines[i] = ";".join(trail_data) + "\n"
+                                trail_data[int(choice)] = new_value  # Update selected field with new value
+                                lines[i] = ";".join(trail_data) + "\n"  # Update line in list of lines
+
                                 with open(self.trail, "w", encoding="utf-8") as file:
-                                    file.writelines(lines)
-                                print(f"Trail with ID: {id} updated successfully.")
-                                return
+                                    file.writelines(lines)  # Write updated lines back to file
+
+                                print(f"Trail with ID: {id} updated successfully.")  # Confirm successful update
+                                return  # Exit method after updating
+
                             else:
                                 print("Value cannot be empty. Please try again.")
+
                     else:
                         print("Invalid choice. Please enter a number between 1 and 8.")
+
         if not trail_found:
             print("No trail found with this ID. Please try again.")
 
     def show_Trail(self):
+        """Display details of a specific trail by its ID."""
         id = input("Enter the ID of the Trail you want to view: ")
+
         with open(self.trail, "r", encoding="utf-8") as file:
-            lines = file.readlines()
-            trail_found = False
-            for line in lines:
-                if line.split(";")[0] == id:
+            lines = file.readlines()  # Read all lines from trails file
+
+            trail_found = False  # Flag to check if the specified trail was found
+
+            for line in lines:  # Iterate through each line (trail)
+                if line.split(";")[0] == id:  # Check if current line matches specified ID
+                    # Print details of the found trail in a formatted manner
                     print(f"ID -> {line.strip().split(';')[0]}")
                     print(f"Name -> {line.strip().split(';')[1]}")
                     print(f"Location -> {line.strip().split(';')[2]}")
@@ -180,7 +208,8 @@ class TrailManager:
                     print(f"Difficulty -> {line.strip().split(';')[5]}")
                     print(f"Extension -> {line.strip().split(';')[6]}")
                     print(f"Form -> {line.strip().split(';')[7]}\n\n")
-                    trail_found = True
+                    trail_found = True  # Set flag indicating that a matching trail was found
                     break
-            if not trail_found:
-                print(f"No Trail found with ID: {id}")
+
+            if not trail_found:  # If no matching trails were found after iterating through all lines
+                print(f"No Trail found with ID: {id}")  # Inform user that no matching ID exists.

@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 
 class ReportPlotter:
     def __init__(self):
-        """Initialize with a fixed path to the CSV file."""
+        #Initialize with a fixed path to the CSV file
         self.filename = 'reports.csv'  # Fixed filename for the report
 
     def load_and_plot(self):
-        """Load report data from the CSV file and plot the number of visits by country."""
+        #Load report data from the CSV file and plot the number of visits by country.
         try:
             # Load data from CSV
             data = pd.read_csv(self.filename, delimiter=';')
@@ -20,7 +20,7 @@ class ReportPlotter:
             plt.figure(figsize=(10, 6))
 
             # Create a bar chart for Number of Visits
-            plt.bar(data['Country'], data['Number of Visits'], color='skyblue')
+            plt.bar(data['Country'], data['Number of Visits'], color='red')
 
             # Add titles and labels
             plt.title('Number of Visits by Country')
