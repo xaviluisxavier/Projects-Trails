@@ -1,11 +1,11 @@
 class Visits:
-    def __init__(self, name, country, gender, age_group, date, likert, trail):
+    def __init__(self, name, country, gender, age_group, date, satisfaction, trail):
         self.name = name
         self.country = country
         self.gender = gender
         self.age_group = age_group
         self.date = date
-        self.likert = likert
+        self.satisfaction = satisfaction
         self.trail = trail
 
     def getName(self):
@@ -23,8 +23,8 @@ class Visits:
     def getDate(self):
         return self.date
 
-    def getLikert(self):
-        return self.likert
+    def getSatisfaction(self):
+        return self.satisfaction
 
     def getTrail(self):
         return self.trail
@@ -49,8 +49,8 @@ class Visits:
         self.date = date
         return None
 
-    def setLikert(self, likert):
-        self.likert = likert
+    def setSatisfaction(self, satisfaction):
+        self.satisfaction = satisfaction
         return None
 
     def setTrail(self, trail):
@@ -58,4 +58,6 @@ class Visits:
         return None
 
     def format(self):
-        return f"{self.trail};{self.name};{self.country};{self.gender};{self.age_group};{self.date};{self.likert};{self.date};\n"
+        return (f"{self.trail};{self.name};{self.country};{self.gender};{self.age_group};"
+                f"{self.date};{self.satisfaction};{self.date};\n")
+

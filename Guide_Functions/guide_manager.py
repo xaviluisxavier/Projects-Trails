@@ -1,6 +1,8 @@
 import json
 from Guide_Functions import guide
 
+g = guide
+
 class Guide_Manager:
     @staticmethod
     def add_guide(filename: str):
@@ -18,7 +20,7 @@ class Guide_Manager:
         availability = input("Enter availability (separated by ,): ").split(',')
 
         # Create a new Guide instance
-        new_guide = Guide(id, name, experience, number, email,
+        new_guide = g.Guide(id, name, experience, number, email,
                           [lang.strip() for lang in languages],
                           [day.strip() for day in availability])
 
