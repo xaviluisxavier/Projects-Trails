@@ -79,9 +79,9 @@ class Clients_Manager:
             break
 
         while True:
+            date = input("Date (d/m/y): ")  # Prompt for date
             try:
-                date = input("Date (d/m/y): ")  # Prompt for date and time
-                date = datetime.strptime(date, "%m/%d/%Y")  # Include time in format
+                date = datetime.strptime(date, "%m/%d/%Y").date()  # Include time in format
                 break
             except ValueError:
                 print("Invalid check IN format. Please use 'd/m/y'.")

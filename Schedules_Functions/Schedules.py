@@ -30,4 +30,4 @@ class Schedules:
         return self
 
     def format(self):
-        return f'{self.trail};{self.guide};{self.checkin};{self.checkout};\n'
+        return f'{self.trail};{self.guide};{self.checkin};{self.checkout}'

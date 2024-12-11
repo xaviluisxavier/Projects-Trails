@@ -59,5 +59,5 @@ class Visits:
 
     def format(self):
         return (f"{self.name};{self.country};{self.gender};{self.age_group};"
-                f"{self.satisfaction};{self.date}\n")
+                f"{self.date};{self.satisfaction}")
 
