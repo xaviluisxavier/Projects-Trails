@@ -1,26 +1,43 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 
-class ReportPlotter:
-    def __init__(self):
-        #Initialize with a fixed path to the CSV file
-        self.filename = 'reports.csv'  # Fixed filename for the report
 
-    def load_and_plot(self):
-        #Load report data from the CSV file and plot the number of visits by country.
+class ReportsManager:
+    def __init__(self):
+        self.filename = 'reports.csv'
+
+    def create_graph(self):
+        """Load report data from the CSV file and plot the number of visits by country."""
         try:
+            countries = []  # List to hold country names
+            visits = []  # List to hold number of visits
+
             # Load data from CSV
-            data = pd.read_csv(self.filename, delimiter=';')
+            with open(self.filename, 'r', encoding='utf-8') as file:
+                # Read the header line
+                header = file.readline().strip().split(';')
+
+                # Check if header is correct
+                if len(header) < 2 or header[0] != "Country" or header[1] != "Number of Visits":
+                    print("Invalid CSV format.")
+                    return
+
+                # Read each subsequent line
+                for line in file:
+                    if line.strip():  # Ensure line is not empty
+                        data = line.strip().split(';')  # Split line by semicolon
+                        countries.append(data[0])  # First element is Country
+                        visits.append(int(data[1]))  # Second element is Number of Visits
 
             # Check if the data is empty
-            if data.empty:
-                return  # Exit if there is no data to plot
+            if not countries or not visits:
+                print("No data to plot.")
+                return
 
             # Set up the plot
             plt.figure(figsize=(10, 6))
 
             # Create a bar chart for Number of Visits
-            plt.bar(data['Country'], data['Number of Visits'], color='red')
+            plt.bar(countries, visits, color='red')
 
             # Add titles and labels
             plt.title('Number of Visits by Country')
@@ -39,9 +56,8 @@ class ReportPlotter:
 
         except FileNotFoundError:
             print(f"Error: The file '{self.filename}' was not found.")
-        except pd.errors.EmptyDataError:
-            print(f"Error: The file '{self.filename}' is empty.")
-        except pd.errors.ParserError:
-            print(f"Error: There was a problem parsing the file '{self.filename}'.")
+        except ValueError:
+            print("Error: There was a problem converting data. Ensure that 'Number of Visits' contains valid integers.")
         except Exception as e:
             print(f"An error occurred while loading data: {e}")
+

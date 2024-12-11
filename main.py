@@ -40,7 +40,7 @@ while True:
         case 5:
             rg.ActivityReport().generate_report()
         case 6:
-            gh.ReportPlotter().load_and_plot()
+            gh.ReportsManager().create_graph()
         case 7:
             print("Exiting the program.")
             break
