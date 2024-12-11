@@ -72,7 +72,7 @@ class SchedulesManager:
         else:
             print(f"No guide found with ID: {guide_ID}")  # Inform user that no matching guide was found
 
-    def CheckIn_and_Out(self):
+    def CheckIn(self):
         """Handle check-in and check-out process for scheduling."""
         self.find_Trail()  # Find and set the selected trail using find_Trail method
         self.findGuide()  # Find and set the selected guide using findGuide method
