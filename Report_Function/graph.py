@@ -1,50 +1,71 @@
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 class ReportsManager:
     def __init__(self):
-        self.filename = 'reports.csv'
+        self.filename = 'reports.csv'  # Name of the CSV file containing report data
 
     def create_graph(self):
-        #Load report data from the CSV file and plot the number of visits by country.
         try:
-            countries = []  # List to hold country names
-            visits = []  # List to hold number of visits
-            # Load data from CSV
+            # Initialize lists and variables to store data
+            countries = []
+            visits = []
+            max_rating = None
+            min_rating = None
+            mode = None
+
+            # Open and read the CSV file
             with open(self.filename, 'r', encoding='utf-8') as file:
                 # Read the header line
                 header = file.readline().strip().split(';')
-                # Check if header is correct
-                if len(header) < 2 or header[0] != "Country" or header[1] != "Number of Visits":
+
+                # Validate the header format
+                if len(header) < 5 or header[0] != "Country" or header[1] != "Number of Visits" or \
+                        header[2] != "Max Rating" or header[3] != "Min Rating" or header[4] != "Mode":
+                    print("Error: The header of the file does not match the expected format.")
                     return
-                # Read each subsequent line
+
+                # Process each line of the file
                 for line in file:
-                    if line.strip():  # Ensure line is not empty
-                        data = line.strip().split(';')  # Split line by semicolon
-                        countries.append(data[0])  # First element is Country
-                        visits.append(int(data[1]))  # Second element is Number of Visits
-            # Check if the data is empty
+                    if line.strip():  # Skip empty lines
+                        data = line.strip().split(';')
+                        countries.append(data[0])  # Add country name
+                        visits.append(int(data[1]))  # Add number of visits
+
+                        # Store rating data (only once)
+                        if max_rating is None:
+                            max_rating = data[2]
+                        if min_rating is None:
+                            min_rating = data[3]
+                        if mode is None:
+                            mode = data[4]
+
+            # Check if there's enough data to create the graph
             if not countries or not visits:
-                print("No data to plot.")
+                print("Not enough data to create the graph.")
                 return
-            # Set up the plot
+
+            # Create the plot
             plt.figure(figsize=(10, 6))
-            # Create a bar chart for Number of Visits
-            plt.bar(countries, visits, color='red')
-            # Add titles and labels
+            bars = plt.bar(countries, visits, color='red', alpha=0.7)
+
+            # Set title and labels
             plt.title('Number of Visits by Country')
             plt.xlabel('Country')
             plt.ylabel('Number of Visits')
-            # Rotate x-axis labels for better visibility if necessary
-            plt.xticks(rotation=45)
-            # Show gridlines for better readability
-            plt.grid(axis='y')
-            # Show the plot
-            plt.tight_layout()  # Adjust layout to make room for x labels
-            plt.show()
+            plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+            plt.grid(axis='y', linestyle='--', alpha=0.7)  # Add horizontal grid lines
+
+            # Add text annotations for ratings
+            plt.text(0.75, 0.98, f'Max Rating: {max_rating}', transform=plt.gca().transAxes, verticalalignment='top')
+            plt.text(0.75, 0.93, f'Min Rating: {min_rating}', transform=plt.gca().transAxes, verticalalignment='top')
+            plt.text(0.75, 0.88, f'Mode: {mode}', transform=plt.gca().transAxes, verticalalignment='top')
+
+            plt.tight_layout()  # Adjust layout to prevent clipping of labels
+            plt.show()  # Display the plot
+
         except FileNotFoundError:
             print(f"Error: The file '{self.filename}' was not found.")
-        except ValueError:
-            print("Error: There was a problem converting data.")
+        except ValueError as e:
+            print(f"Error: There was a problem converting data. {e}")
         except Exception as e:
             print(f"An error occurred while loading data: {e}")
-
