@@ -19,7 +19,6 @@ class ActivityReport:
                                 'clients': set(),  # Set to store unique client names
                                 'satisfactions': []  # List to store satisfaction ratings
                             }
-
                         # Add client name and satisfaction rating
                         self.data[country]['clients'].add(name)
                         self.data[country]['satisfactions'].append(satisfaction)
@@ -28,16 +27,12 @@ class ActivityReport:
             for country, info in self.data.items():
                 num_visits = len(info['clients'])  # Count unique visitors
                 ratings = info['satisfactions']
-
                 # Determine max, min, and mode ratings
                 max_rating = max(ratings, key=self.map_satisfaction) if ratings else None
                 min_rating = min(ratings, key=self.map_satisfaction) if ratings else None
                 mode_rating = self.calculate_mode(ratings)
-
                 report.append([country, num_visits, max_rating, min_rating, mode_rating])
-
             print("Report generated successfully.")
-
             # Save the report to the output file
             with open(output_file, 'w', encoding='utf-8') as file:
                 file.write('Country;Number of Visits;Max Rating;Min Rating;Mode\n')
@@ -49,10 +44,8 @@ class ActivityReport:
             print(f"An error occurred: {e}")
 
     def calculate_mode(self, ratings):
-
         if not ratings:
             return None  # Return None if there are no ratings available
-
         # Create a dictionary to count occurrences of each rating
         frequency_count = {}
         # Iterate through each rating in the list
@@ -64,7 +57,6 @@ class ActivityReport:
         return mode
 
     def map_satisfaction(self, satisfaction):
-
         # Define a mapping from satisfaction strings to numerical values
         mapping = {
             'Very Satisfied': 5,
