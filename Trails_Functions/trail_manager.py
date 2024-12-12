@@ -124,26 +124,34 @@ class TrailManager:
             print(f"No trail found with ID: {id}.")
 
     def Edit_Trail(self):
-        #Edit details of an existing trail.
+        # Edit details of an existing trail
         while True:
+            # Prompt user for the Trail ID to edit
             id_input = input('Trail ID to edit -> ').strip()
             if not id_input:
                 print("ID cannot be empty. Please try again.")
                 continue
             try:
+                # Convert input to integer
                 id = int(id_input)
                 break
             except ValueError:
                 print("ID must be a number. Please try again.")
 
+        # Open and read the trail file
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
         trail_found = False
+
+        # Iterate through each line in the file
         for i, line in enumerate(lines):
+            # Check if the current line's ID matches the input ID
             if str(id) == line.split(";")[0]:
                 trail_found = True
-                # Display current details of the found trail
+                # Split the line into individual data fields
                 trail_data = line.strip().split(";")
+
+                # Display current details of the found trail
                 print("\nCurrent trail details:")
                 print(f"1. Name: {trail_data[1]}")
                 print(f"2. Island: {trail_data[2]}")
@@ -153,22 +161,65 @@ class TrailManager:
                 print(f"6. Extension: {trail_data[6]}")
                 print(f"7. Form: {trail_data[7]}")
                 print(f"8. Description: {trail_data[8]}")
+
                 while True:
+                    # Prompt user to choose which field to edit
                     choice = input("Enter the number of the field to edit (1-8): ").strip()
                     if choice in ['1', '2', '3', '4', '5', '6', '7', '8']:
+                        field_index = int(choice)
                         while True:
-                            new_value = input("Enter new value: ").strip()
-                            if new_value:
-                                trail_data[int(choice)] = new_value  # Update selected field with new value
-                                lines[i] = ";".join(trail_data) + "\n"  # Update line in list of lines
-                                with open(self.trail, "w", encoding="utf-8") as file:
-                                    file.writelines(lines)  # Write updated lines back to file
-                                print(f"Trail with ID: {id} updated successfully.")  # Confirm successful update
-                                return  # Exit method after updating
-                            else:
-                                print("Value cannot be empty. Please try again.")
+                            if field_index == 5:  # Field "Difficulty"
+                                # Display difficulty options
+                                print("\nChoose difficulty:")
+                                print("1 - Easy")
+                                print("2 - Medium")
+                                print("3 - Hard")
+                                difficulty_choice = input("Enter your choice (1-3): ").strip()
+                                difficulty_map = {"1": "Easy", "2": "Medium", "3": "Hard"}
+                                new_value = difficulty_map.get(difficulty_choice)
+                                if new_value:
+                                    break
+                                else:
+                                    print("Invalid choice. Please try again.")
+                            elif field_index == 6:  # Field "Extension"
+                                # Display extension options
+                                print("\nChoose extension:")
+                                print("1 - 0-5km")
+                                print("2 - 5-10km")
+                                print("3 - 10-15km")
+                                print("4 - 15-30km")
+                                print("5 - +30km")
+                                extension_choice = input("Enter your choice (1-5): ").strip()
+                                extension_map = {"1": "0-5km", "2": "5-10km", "3": "10-15km", "4": "15-30km",
+                                                 "5": "+30km"}
+                                new_value = extension_map.get(extension_choice)
+                                if new_value:
+                                    break
+                                else:
+                                    print("Invalid choice. Please try again.")
+                            else:  # Other fields
+                                # For other fields, allow free text input
+                                new_value = input("Enter new value: ").strip()
+                                if new_value:
+                                    break
+                                else:
+                                    print("Value cannot be empty. Please try again.")
+
+                        # Update the selected field with the new value
+                        trail_data[field_index] = new_value
+                        # Reconstruct the line with updated data
+                        lines[i] = ";".join(trail_data) + "\n"
+
+                        # Write all updated lines back to the file
+                        with open(self.trail, "w", encoding="utf-8") as file:
+                            file.writelines(lines)
+
+                        print(f"Trail with ID: {id} updated successfully.")
+                        return  # Exit after updating
                     else:
                         print("Invalid choice. Please enter a number between 1 and 8.")
+
+        # If loop completes without finding the trail
         if not trail_found:
             print("No trail found with this ID. Please try again.")
 
