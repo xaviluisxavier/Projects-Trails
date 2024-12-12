@@ -27,7 +27,7 @@ while True:
                 if 1 <= option <= 7:
                     break
                 else:
-                    print('Invalid option. Please choose 1, 2, or 3.')
+                    print('Invalid option. Please choose between 1 and 7.')
             except ValueError:
                 print('Invalid input. Please enter a number.')
         else:
