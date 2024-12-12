@@ -61,7 +61,7 @@ class ActivityReport:
         mapping = {
             'Very Satisfied': 5,
             'Satisfied': 4,
-            'Neutral': 3,
+            'Undecided': 3,
             'Unsatisfied': 2,
             'Very Unsatisfied': 1,
         }
