@@ -15,7 +15,6 @@ class ReportsManager:
                 header = file.readline().strip().split(';')
                 # Check if header is correct
                 if len(header) < 2 or header[0] != "Country" or header[1] != "Number of Visits":
-                    print("Invalid CSV format.")
                     return
                 # Read each subsequent line
                 for line in file:
