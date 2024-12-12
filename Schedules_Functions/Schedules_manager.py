@@ -7,7 +7,7 @@ a = Schedules  # Create an instance of the Schedules class
 class SchedulesManager:
     def __init__(self, guide_found="", trail_found="", schedule="schedule.csv", trails="trails.csv",
                  guide="guide.json"):
-        """Initialize the SchedulesManager with file names and optional found guide/trail."""
+        #Initialize the SchedulesManager with file names and optional found guide/trail.
         self.schedule = schedule  # Set the filename for schedules
         self.trails = trails  # Set the filename for trails
         self.guide = guide  # Set the filename for guides
@@ -15,12 +15,12 @@ class SchedulesManager:
         self.trail_found = trail_found  # Store found trail name
 
     def save_schedules(self, tf):
-        """Append a new schedule entry to the schedules file."""
+        #Append a new schedule entry to the schedules file.
         with open(self.schedule, 'a', encoding='utf-8') as file:
             file.write(tf + "\n")  # Write the schedule entry followed by a newline for proper CSV formatting
 
     def find_Trail(self):
-        """Find a trail by its ID."""
+        #Find a trail by its ID.
         while True:
             trail_ID_input = input("Enter trail ID: ").strip()  # Prompt user for trail ID
             if not trail_ID_input:
@@ -47,7 +47,7 @@ class SchedulesManager:
             print(f"No trail found with ID: {trail_ID}")  # Inform user that no matching trail was found
 
     def findGuide(self):
-        """Find a guide by their ID."""
+        #Find a guide by their ID.
         while True:
             guide_ID_input = input("Enter guide ID: ").strip()  # Prompt user for guide ID
             if not guide_ID_input:
@@ -72,7 +72,7 @@ class SchedulesManager:
             print(f"No guide found with ID: {guide_ID}")  # Inform user that no matching guide was found
 
     def CheckIn_and_Out(self):
-        """Handle check-in and check-out process for scheduling."""
+        #Handle check-in and check-out process for scheduling.
         self.find_Trail()  # Find and set the selected trail using find_Trail method
         self.findGuide()  # Find and set the selected guide using findGuide method
 

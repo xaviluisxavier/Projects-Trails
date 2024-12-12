@@ -6,13 +6,12 @@ g = guide  # Create an instance of the guide class
 class Guide_Manager:
     @staticmethod
     def add_guide(filename: str):
-        """Add a new guide to the specified file."""
+        #Add a new guide to the specified file.
         id = input("Enter guide's ID: ")  # Prompt user for the guide's ID
         with open(filename, 'r') as file:
             if id in file.read():  # Check if the ID already exists in the file
                 print("ID already exists. Please try again.")  # Inform user if ID is duplicate
                 return
-
         # Collect other details for the new guide
         name = input("Enter guide's name: ")  # Prompt for the guide's name
         experience = int(input("Enter experience (in years): "))  # Prompt for years of experience
@@ -40,7 +39,7 @@ class Guide_Manager:
 
     @staticmethod
     def remove_guide(filename: str):
-        """Remove a guide from the specified file."""
+        #Remove a guide from the specified file.
         idAux = input("Enter the guide's id: ")  # Prompt user for the ID of the guide to remove
 
         with open(filename, 'r') as file:
@@ -65,7 +64,7 @@ class Guide_Manager:
 
     @staticmethod
     def view_guide(filename: str):
-        """View details of guides."""
+        #View details of guides.
         print("\n1. View all guides")  # Option to view all guides
         print("2. View a specific guide")  # Option to view a specific guide by ID
         print("3. Back")  # Option to return to previous menu
@@ -97,7 +96,7 @@ class Guide_Manager:
 
     @staticmethod
     def update_guide(filename: str):
-        """Update details of an existing guide."""
+        #Update details of an existing guide.
         idAux = input("Enter the guide's ID that you want to update: ")
 
         with open(filename, 'r') as file:

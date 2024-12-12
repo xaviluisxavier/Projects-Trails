@@ -5,7 +5,7 @@ class ReportsManager:
         self.filename = 'reports.csv'
 
     def create_graph(self):
-        """Load report data from the CSV file and plot the number of visits by country."""
+        #Load report data from the CSV file and plot the number of visits by country.
         try:
             countries = []  # List to hold country names
             visits = []  # List to hold number of visits

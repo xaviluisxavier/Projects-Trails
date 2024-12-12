@@ -4,16 +4,16 @@ t = trail  # Create an instance of the trail class
 
 class TrailManager:
     def __init__(self, tf="trails.csv"):
-        """Initialize the TrailManager with file names for trails and schedules."""
+        #Initialize the TrailManager with file names for trails and schedules.
         self.trail = tf  # Set the filename for trails
 
     def save_Trails(self, st):
-        """Append a new trail entry to the trails file."""
+        #Append a new trail entry to the trails file.
         with open(self.trail, "a", encoding="utf-8") as file:
             file.write(st + '\n')  # Write the trail entry followed by a newline for proper CSV formatting
 
     def create_Trail(self):
-        """Collect information to create a new trail and save it."""
+        #Collect information to create a new trail and save it.
         print("\n--- Create New Trail ---")  # Header for creating a new trail
         diff_list = {"1": "Easy", "2": "Medium", "3": "Hard"}  # Difficulty levels mapping
         ext_list = {"1": "0-5km", "2": "5-10km", "3": "10-15km", "4": "15-30km",
@@ -97,7 +97,7 @@ class TrailManager:
         print(f"Trail: {name} with the ID: {id} created successfully")  # Confirm successful creation of the trail
 
     def remove_Trail(self):
-        """Remove a trail by its ID."""
+        #Remove a trail by its ID.
         while True:
             id_input = input('Trail ID to remove -> ').strip()  # Prompt for ID of the trail to remove
             if not id_input:
@@ -124,7 +124,7 @@ class TrailManager:
             print(f"No trail found with ID: {id}.")
 
     def Edit_Trail(self):
-        """Edit details of an existing trail."""
+        #Edit details of an existing trail.
         while True:
             id_input = input('Trail ID to edit -> ').strip()
             if not id_input:
@@ -173,7 +173,7 @@ class TrailManager:
             print("No trail found with this ID. Please try again.")
 
     def show_Trail(self):
-        """Display details of a specific trail by its ID."""
+        #Display details of a specific trail by its ID.
         id = input("Enter the ID of the Trail you want to view: ")
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()  # Read all lines from trails file

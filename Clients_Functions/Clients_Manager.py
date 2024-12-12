@@ -10,13 +10,13 @@ class Clients_Manager:
         self.trails = st  # Set the filename for trails
 
     def saveVisits(self, tr):
-        """Append a new visit record to the Visits file."""
+        #Append a new visit record to the Visits file.
         file = open(self.Visits, "a", encoding="utf-8")  # Open the Visits file in append mode
         file.write(tr + "\n")  # Write the visit record followed by a newline
         file.close()  # Close the file to save changes
 
     def find_Trail(self):
-        """Find a trail by its ID."""
+        #Find a trail by its ID.
         while True:
             trail_ID_input = input("Enter trail ID: ").strip()  # Prompt user for trail ID
             if not trail_ID_input:
