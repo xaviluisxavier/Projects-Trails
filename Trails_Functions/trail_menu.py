@@ -24,7 +24,6 @@ class Trails_Menu:
                         print('Invalid input. Please enter a number.')
                 else:
                     print('Input cannot be empty. Please enter a number.')
-
             match option:
                 case 1:
                     self.trail_manager.create_Trail()
@@ -36,5 +35,4 @@ class Trails_Menu:
                     self.trail_manager.show_Trail()
                 case 5:
                     break
-
         print("Returning to main menu.")  # Feedback when exiting the Trails Menu

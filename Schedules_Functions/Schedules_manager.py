@@ -4,7 +4,6 @@ import json
 
 a = Schedules  # Create an instance of the Schedules class
 
-
 class SchedulesManager:
     def __init__(self, guide_found="", trail_found="", schedule="schedule.csv", trails="trails.csv",
                  guide="guide.json"):
@@ -95,8 +94,6 @@ class SchedulesManager:
 
         # Create a new schedule entry using stored values for selected trail and guide
         schedule_entry = a.Schedules(self.guide_found, self.trail_found, check_IN, check_OUT)
-
         # Save the formatted schedule entry to the CSV file using save_schedules method
         self.save_schedules(schedule_entry.format())
-
         print("Schedule added.")  # Confirm successful addition of the schedule entry

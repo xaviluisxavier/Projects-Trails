@@ -3,10 +3,9 @@ from Trails_Functions import trail  # Import the trail class from the Trails_Fun
 t = trail  # Create an instance of the trail class
 
 class TrailManager:
-    def __init__(self, tf="trails.csv", st=trail):
+    def __init__(self, tf="trails.csv"):
         """Initialize the TrailManager with file names for trails and schedules."""
         self.trail = tf  # Set the filename for trails
-        self.trails = st  # Set the filename for saving trails (not used correctly)
 
     def save_Trails(self, st):
         """Append a new trail entry to the trails file."""
@@ -92,12 +91,9 @@ class TrailManager:
                 print('Description cannot be empty. Please enter a valid description.')  # Validate input
                 continue
             break
-
         # Create an instance of Trails and save it using the collected information
         trail_instance = t.Trails(id, name, island, council, coordinates, difficulty, extension, form, description)
-
         self.save_Trails(trail_instance.format())  # Save the formatted trail entry to the CSV file
-
         print(f"Trail: {name} with the ID: {id} created successfully")  # Confirm successful creation of the trail
 
     def remove_Trail(self):
@@ -112,9 +108,7 @@ class TrailManager:
                 break
             except ValueError:
                 print("ID must be a number. Please try again.")
-
         trail_found = False  # Flag to check if the trail was found
-
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
 
@@ -124,7 +118,6 @@ class TrailManager:
                     file.write(line)
                 else:
                     trail_found = True
-
         if trail_found:
             print(f"Trail with ID: {id} removed successfully.")
         else:
@@ -145,13 +138,10 @@ class TrailManager:
 
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
-
         trail_found = False
-
         for i, line in enumerate(lines):
             if str(id) == line.split(";")[0]:
                 trail_found = True
-
                 # Display current details of the found trail
                 trail_data = line.strip().split(";")
                 print("\nCurrent trail details:")
@@ -163,7 +153,6 @@ class TrailManager:
                 print(f"6. Extension: {trail_data[6]}")
                 print(f"7. Form: {trail_data[7]}")
                 print(f"8. Description: {trail_data[8]}")
-
                 while True:
                     choice = input("Enter the number of the field to edit (1-8): ").strip()
                     if choice in ['1', '2', '3', '4', '5', '6', '7', '8']:
@@ -172,31 +161,23 @@ class TrailManager:
                             if new_value:
                                 trail_data[int(choice)] = new_value  # Update selected field with new value
                                 lines[i] = ";".join(trail_data) + "\n"  # Update line in list of lines
-
                                 with open(self.trail, "w", encoding="utf-8") as file:
                                     file.writelines(lines)  # Write updated lines back to file
-
                                 print(f"Trail with ID: {id} updated successfully.")  # Confirm successful update
                                 return  # Exit method after updating
-
                             else:
                                 print("Value cannot be empty. Please try again.")
-
                     else:
                         print("Invalid choice. Please enter a number between 1 and 8.")
-
         if not trail_found:
             print("No trail found with this ID. Please try again.")
 
     def show_Trail(self):
         """Display details of a specific trail by its ID."""
         id = input("Enter the ID of the Trail you want to view: ")
-
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()  # Read all lines from trails file
-
             trail_found = False  # Flag to check if the specified trail was found
-
             for line in lines:  # Iterate through each line (trail)
                 if line.split(";")[0] == id:  # Check if current line matches specified ID
                     # Print details of the found trail in a formatted manner
@@ -210,6 +191,5 @@ class TrailManager:
                     print(f"Form -> {line.strip().split(';')[7]}\n\n")
                     trail_found = True  # Set flag indicating that a matching trail was found
                     break
-
             if not trail_found:  # If no matching trails were found after iterating through all lines
                 print(f"No Trail found with ID: {id}")  # Inform user that no matching ID exists.

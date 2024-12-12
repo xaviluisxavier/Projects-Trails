@@ -55,12 +55,10 @@ class ActivityReport:
 
         # Create a dictionary to count occurrences of each rating
         frequency_count = {}
-
         # Iterate through each rating in the list
         for rating in ratings:
             # Increment the count for this rating in the frequency dictionary
             frequency_count[rating] = frequency_count.get(rating, 0) + 1
-
         # Find the rating with the maximum frequency and return it as the mode
         mode = max(frequency_count.items(), key=lambda item: item[1])[0]
         return mode

@@ -3,7 +3,6 @@ from Clients_Functions import Clients  # Import the Clients class from Clients_F
 
 c = Clients  # Create an instance of the Clients class (though this line is not used correctly)
 
-
 class Clients_Manager:
     def __init__(self, st="trails.csv", tf="clients.csv") -> None:
         """Initialize the Clients_Manager with default trail and client file names."""
@@ -37,7 +36,6 @@ class Clients_Manager:
                     self.found_Trail = trail_data[1]  # Store the found trail name
                     trail_found = True  # Set flag to indicate a trail was found
                     break  # Exit loop if trail is found
-
         if trail_found:
             print(f"Trail found: {self.found_Trail}")  # Inform user of found trail
         else:
