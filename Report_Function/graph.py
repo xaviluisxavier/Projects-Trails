@@ -1,10 +1,10 @@
 from matplotlib import pyplot as plt
 
 class ReportsManager:
-    def __init__(self):
-        self.filename = 'reports.csv'  # Name of the CSV file containing report data
+    def __init__(self, reports = 'reports.csv'):
+        self.reports = reports  # Name of the CSV file containing report data
 
-    def create_graph(self):
+    def create_graph(self) -> None:
         try:
             # Initialize lists and variables to store data
             countries = []
@@ -12,9 +12,8 @@ class ReportsManager:
             max_rating = None
             min_rating = None
             mode = None
-
             # Open and read the CSV file
-            with open(self.filename, 'r', encoding='utf-8') as file:
+            with open(self.reports, 'r', encoding='utf-8') as file:
                 # Read the header line
                 header = file.readline().strip().split(';')
 
@@ -64,7 +63,7 @@ class ReportsManager:
             plt.show()  # Display the plot
 
         except FileNotFoundError:
-            print(f"Error: The file '{self.filename}' was not found.")
+            print(f"Error: The file '{self.reports}' was not found.")
         except ValueError as e:
             print(f"Error: There was a problem converting data. {e}")
         except Exception as e:

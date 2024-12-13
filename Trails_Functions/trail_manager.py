@@ -7,10 +7,10 @@ class TrailManager:
         #Initialize the TrailManager with file names for trails and schedules.
         self.trail = tf  # Set the filename for trails
 
-    def save_Trails(self, st):
+    def save_Trails(self, trail):
         #Append a new trail entry to the trails file.
         with open(self.trail, "a", encoding="utf-8") as file:
-            file.write(st + '\n')  # Write the trail entry followed by a newline for proper CSV formatting
+            file.write(trail + '\n')  # Write the trail entry followed by a newline for proper CSV formatting
 
     def create_Trail(self):
         #Collect information to create a new trail and save it.
@@ -108,7 +108,7 @@ class TrailManager:
                 break
             except ValueError:
                 print("ID must be a number. Please try again.")
-        trail_found = False  # Flag to check if the trail was found
+
         with open(self.trail, "r", encoding="utf-8") as file:
             lines = file.readlines()
 

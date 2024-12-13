@@ -5,19 +5,18 @@ import json
 a = Schedules  # Create an instance of the Schedules class
 
 class SchedulesManager:
-    def __init__(self, guide_found="", trail_found="", schedule="schedule.csv", trails="trails.csv",
-                 guide="guide.json"):
+    def __init__(self, schedule = "schedule.csv", trails = "trails.csv", guide = "guide.json"):
         #Initialize the SchedulesManager with file names and optional found guide/trail.
         self.schedule = schedule  # Set the filename for schedules
         self.trails = trails  # Set the filename for trails
         self.guide = guide  # Set the filename for guides
-        self.guide_found = guide_found  # Store found guide name
-        self.trail_found = trail_found  # Store found trail name
+        self.guide_found = ""
+        self.trail_found = ""
 
-    def save_schedules(self, tf):
+    def save_schedules(self, schedule_entry):
         #Append a new schedule entry to the schedules file.
         with open(self.schedule, 'a', encoding='utf-8') as file:
-            file.write(tf + "\n")  # Write the schedule entry followed by a newline for proper CSV formatting
+            file.write(schedule_entry + "\n")  # Write the schedule entry followed by a newline for proper CSV formatting
 
     def find_Trail(self):
         #Find a trail by its ID.

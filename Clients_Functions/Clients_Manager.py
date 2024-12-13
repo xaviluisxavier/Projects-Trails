@@ -4,16 +4,16 @@ from Clients_Functions import Clients  # Import the Clients class from Clients_F
 c = Clients  # Create an instance of the Clients class (though this line is not used correctly)
 
 class Clients_Manager:
-    def __init__(self, st="trails.csv", tf="clients.csv") -> None:
-        """Initialize the Clients_Manager with default trail and client file names."""
-        self.Visits = tf  # Set the filename for client visits
-        self.trails = st  # Set the filename for trails
+    def __init__(self, ts="trails.csv", vs="clients.csv") -> None:
+        #Initialize the Clients_Manager with default trail and client file names.
+        self.Visits = vs  # Set the filename for client visits
+        self.trails = ts  # Set the filename for trails
 
-    def saveVisits(self, tr):
+    def saveVisits(self, visit):
         #Append a new visit record to the Visits file.
-        file = open(self.Visits, "a", encoding="utf-8")  # Open the Visits file in append mode
-        file.write(tr + "\n")  # Write the visit record followed by a newline
-        file.close()  # Close the file to save changes
+        with open(self.Visits, "a", encoding="utf-8") as file:  # Open and close the Visits file in append mode
+            file.write(visit + "\n")  # Write the visit record followed by a newline
+
 
     def find_Trail(self):
         #Find a trail by its ID.
@@ -42,7 +42,7 @@ class Clients_Manager:
             print(f"No trail found with ID: {trail_ID}")  # Inform user that no matching trail was found
 
     def Create_Client(self):
-        """Create a new client record."""
+        #Create a new client record.
         age_list = {"1": "12-18", "2": "19-29", "3": "30-49", "4": "50-64", "5": "65+"}  # Age groups mapping
         sat_list = {"1": "Very Unsatisfied", "2": "Unsatisfied", "3": "Undecided", "4": "Satisfied",
                     "5": "Very Satisfied"}  # Satisfaction levels mapping
