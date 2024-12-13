@@ -91,6 +91,6 @@ class Clients_Manager:
             except ValueError:
                 print("Invalid check IN format. Please use 'd/m/y'.")
 
-        Visits = c.Visits(name, country, gender, age_group, satis, date, self.trails)
+        Visits = c.Visits(name, country, gender, age_group, satis, date)
         self.saveVisits(Visits.format())
         print(f"Client {name} Added.")

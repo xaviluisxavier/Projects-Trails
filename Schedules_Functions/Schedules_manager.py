@@ -87,6 +87,5 @@ class SchedulesManager:
 
         # Create a new schedule entry using stored values for selected trail and guide
         schedule_entry = a.Schedules(self.guide_found, self.trail_found, check_IN, check_OUT)
-        self.save_schedules(
-            schedule_entry.format())  # Save the formatted schedule entry to the CSV file using save_schedules method
+        self.save_schedules(schedule_entry.format())  # Save the formatted schedule entry to the CSV file using save_schedules method
         print("Schedule added.")  # Confirm successful addition of the schedule entry
