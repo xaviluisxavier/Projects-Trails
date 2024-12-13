@@ -15,43 +15,5 @@
             "sexta",
             "sabado"
         ]
-    },
-    {
-        "id": "2",
-        "name": "miguel",
-        "experience": 5,
-        "contact": {
-            "number": "999999999",
-            "email": "miguelmonteiro@hotmail.com"
-        },
-        "languages": [
-            "pt",
-            "br"
-        ],
-        "availability": [
-            "segunda",
-            "terca",
-            "quarta",
-            "quinta",
-            "sexta"
-        ]
-    },
-    {
-        "id": "3",
-        "name": "mateus",
-        "experience": 2,
-        "contact": {
-            "number": "296421024",
-            "email": "thejokercfw2.0@gmail.com"
-        },
-        "languages": [
-            "pt",
-            "en",
-            "jp"
-        ],
-        "availability": [
-            "sabado",
-            "domingo"
-        ]
     }
 ]

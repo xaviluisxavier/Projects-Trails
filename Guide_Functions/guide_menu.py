@@ -5,6 +5,7 @@ class Guides_Menu:
         self.guide_manager = gm.Guide_Manager()
 
         while True:
+            print('\n--- GUIDE MENU ---')
             print('1 - Create Guides')
             print('2 - Update Guide')
             print('3 - Remove Guides')

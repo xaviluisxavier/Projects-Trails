@@ -5,6 +5,7 @@ class Trails_Menu:
         self.trail_manager = tm.TrailManager()  # Create an instance of TrailManager
 
         while True:
+            print('\n--- TRAIL MENU ---')
             print('1 - Create Trail')
             print('2 - Update Trails')
             print('3 - Remove Trails')
