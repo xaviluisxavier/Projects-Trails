@@ -6,7 +6,7 @@ a = Schedules  # Create an instance of the Schedules class
 
 class SchedulesManager:
     def __init__(self, schedule = "schedule.csv", trails = "trails.csv", guide = "guide.json"):
-        #Initialize the SchedulesManager with file names and optional found guide/trail.
+        #Initialize the SchedulesManager with file names
         self.schedule = schedule  # Set the filename for schedules
         self.trails = trails  # Set the filename for trails
         self.guide = guide  # Set the filename for guides
