@@ -143,7 +143,7 @@ class TrailManager:
             lines = file.readlines()
         trail_found = False
 
-        # Iterate through each line in the file
+        # Iterate through each line in the file to find the trail by ID
         for i, line in enumerate(lines):
             # Check if the current line's ID matches the input ID
             if str(id) == line.split(";")[0]:
@@ -178,7 +178,7 @@ class TrailManager:
                                 difficulty_map = {"1": "Easy", "2": "Medium", "3": "Hard"}
                                 new_value = difficulty_map.get(difficulty_choice)
                                 if new_value:
-                                    break
+                                    break  # Valid choice, exit loop
                                 else:
                                     print("Invalid choice. Please try again.")
                             elif field_index == 6:  # Field "Extension"
@@ -190,18 +190,30 @@ class TrailManager:
                                 print("4 - 15-30km")
                                 print("5 - +30km")
                                 extension_choice = input("Enter your choice (1-5): ").strip()
-                                extension_map = {"1": "0-5km", "2": "5-10km", "3": "10-15km", "4": "15-30km",
-                                                 "5": "+30km"}
+                                extension_map = {"1": "0-5km", "2": "5-10km", "3": "10-15km",
+                                                 "4": "15-30km", "5": "+30km"}
                                 new_value = extension_map.get(extension_choice)
                                 if new_value:
-                                    break
+                                    break  # Valid choice, exit loop
                                 else:
                                     print("Invalid choice. Please try again.")
-                            else:  # Other fields
+                            elif field_index == 7:  # Field "Form"
+                                # Display form options
+                                print("\nChoose form:")
+                                print("1 - Circular")
+                                print("2 - Linear")
+                                form_choice = input("Enter your choice (1-2): ").strip()
+                                form_map = {"1": "Circular", "2": "Linear"}
+                                new_value = form_map.get(form_choice)
+                                if new_value:
+                                    break  # Valid choice, exit loop
+                                else:
+                                    print("Invalid choice. Please try again.")
+                            else:  # Other fields (Name, Island, Council, Coordinates, Description)
                                 # For other fields, allow free text input
                                 new_value = input("Enter new value: ").strip()
                                 if new_value:
-                                    break
+                                    break  # Valid input, exit loop
                                 else:
                                     print("Value cannot be empty. Please try again.")
 
@@ -218,8 +230,7 @@ class TrailManager:
                         return  # Exit after updating
                     else:
                         print("Invalid choice. Please enter a number between 1 and 8.")
-
-        # If loop completes without finding the trail
+        # If loop completes without finding the trail, notify user
         if not trail_found:
             print("No trail found with this ID. Please try again.")
 
@@ -239,7 +250,8 @@ class TrailManager:
                     print(f"Coordinates -> {line.strip().split(';')[4]}")
                     print(f"Difficulty -> {line.strip().split(';')[5]}")
                     print(f"Extension -> {line.strip().split(';')[6]}")
-                    print(f"Form -> {line.strip().split(';')[7]}\n\n")
+                    print(f"Form -> {line.strip().split(';')[7]}")
+                    print(f"Description -> {line.strip().split(';')[8]}\n\n")
                     trail_found = True  # Set flag indicating that a matching trail was found
                     break
             if not trail_found:  # If no matching trails were found after iterating through all lines
