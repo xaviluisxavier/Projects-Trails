@@ -11,31 +11,31 @@ class Trails:
         self.form = form
         self.description = description
     # Getter methods
-    def get_id(self:None) -> int:
+    def get_id(self) -> int:
         return self.id
 
-    def get_name(self:None) -> str:
+    def get_name(self) -> str:
         return self.name
 
-    def get_island(self:None) -> str:
+    def get_island(self) -> str:
         return self.island
 
-    def get_council(self:None) -> str:
+    def get_council(self) -> str:
         return self.council
 
-    def get_coordinates(self:None) -> str:
+    def get_coordinates(self) -> str:
         return self.coordinates
 
-    def get_difficulty(self:None) -> str:
+    def get_difficulty(self) -> str:
         return self.difficulty
 
-    def get_extension(self:None) -> str:
+    def get_extension(self) -> str:
         return self.extension
 
-    def get_form(self:None) -> str:
+    def get_form(self) -> str:
         return self.form
 
-    def get_description(self:None) -> str:
+    def get_description(self) -> str:
         return self.description
 
     # Setter methods

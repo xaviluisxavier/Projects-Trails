@@ -1,7 +1,7 @@
 from datetime import datetime
 from Clients_Functions import Clients  # Import the Clients class from Clients_Functions module
 
-c = Clients  # Create an instance of the Clients class (though this line is not used correctly)
+c = Clients  # Create an instance of the Clients class
 
 class Clients_Manager:
     def __init__(self, ts="trails.csv", vs="clients.csv") -> None:
@@ -14,9 +14,8 @@ class Clients_Manager:
         with open(self.Visits, "a", encoding="utf-8") as file:  # Open and close the Visits file in append mode
             file.write(visit + "\n")  # Write the visit record followed by a newline
 
-
+    # Find a trail by its ID.
     def find_Trail(self):
-        #Find a trail by its ID.
         while True:
             trail_ID_input = input("Enter trail ID: ").strip()  # Prompt user for trail ID
             if not trail_ID_input:
@@ -27,7 +26,6 @@ class Clients_Manager:
                 break  # Exit loop if conversion is successful
             except ValueError:
                 print("Invalid trail ID. Please enter a number.")  # Handle non-integer input
-
         trail_found = False  # Flag to check if the trail was found
         with open(self.trails, 'r', encoding='utf-8') as file:  # Open trails file for reading
             for line in file:
@@ -41,12 +39,11 @@ class Clients_Manager:
         else:
             print(f"No trail found with ID: {trail_ID}")  # Inform user that no matching trail was found
 
+    # Create a new client record.
     def Create_Client(self):
-        #Create a new client record.
         age_list = {"1": "12-18", "2": "19-29", "3": "30-49", "4": "50-64", "5": "65+"}  # Age groups mapping
         sat_list = {"1": "Very Unsatisfied", "2": "Unsatisfied", "3": "Undecided", "4": "Satisfied",
-                    "5": "Very Satisfied"}  # Satisfaction levels mapping
-
+                    "5": "Very Satisfied"}  # Satisfaction  mapping
         while True:
             name = input('Client name -> ').strip()  # Prompt for client name
             if not name:

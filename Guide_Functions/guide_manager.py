@@ -142,6 +142,5 @@ class Guide_Manager:
                     json.dump(guides_data, file, indent=4)
 
                 print("Guide updated successfully!")
-
         if not found:
             print("Guide not found.")

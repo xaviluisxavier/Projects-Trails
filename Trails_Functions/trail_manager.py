@@ -10,7 +10,7 @@ class TrailManager:
     def save_Trails(self, trail):
         #Append a new trail entry to the trails file.
         with open(self.trail, "a", encoding="utf-8") as file:
-            file.write(trail + '\n')  # Write the trail entry followed by a newline for proper CSV formatting
+            file.write(trail + '\n')  # Write the trail entry followed by a newline
 
     def create_Trail(self):
         #Collect information to create a new trail and save it.
