@@ -37,7 +37,6 @@ class SchedulesManager:
                         self.trail_found = trail_data[1]  # Store the found trail name
                         print(f"Trail found: {self.trail_found}")  # Inform user of found trail
                         return  # Exit the method if a trail is found
-
             print(f"No trail found with ID: {trail_ID}")  # Inform user that no matching trail was found
 
     def findGuide(self):
@@ -55,7 +54,6 @@ class SchedulesManager:
                     self.guide_found = guide["name"]  # Store the found guide name
                     print(f"Guide found: {self.guide_found}")  # Inform user of found guide
                     return  # Exit the method if a guide is found
-
             print(f"No guide found with ID: {guide_ID_input}")  # Inform user that no matching guide was found
 
     def CheckIn_and_Out(self):

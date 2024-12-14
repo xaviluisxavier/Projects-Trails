@@ -10,6 +10,7 @@ class Trails:
         self.extension = extension
         self.form = form
         self.description = description
+
     # Getter methods
     def get_id(self) -> int:
         return self.id

@@ -65,7 +65,7 @@ class ReportsManager:
 
         except FileNotFoundError:
             print(f"Error: The file '{self.reports}' was not found.")  # Handle case where the file does not exist
-        except ValueError as e:
-            print(f"Error: There was a problem converting data. {e}")  # Handle conversion errors (e.g., int conversion)
-        except Exception as e:
-            print(f"An error occurred while loading data: {e}")  # Catch-all for any other exceptions that may occur
+        except ValueError as err:
+            print(f"Error: There was a problem converting data. {err}")  # Handle conversion errors
+        except Exception as err:
+            print(f"An error occurred while loading data: {err}")  # Catch-all for any other exceptions that may occur
