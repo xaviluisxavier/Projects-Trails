@@ -4,58 +4,92 @@ class ActivityReport:
         self.data = {}
 
     def generate_report(self):
-        input_file = 'clients.csv'  # Name of the input file containing client data
-        output_file = 'reports.csv'  # Name of the output file for the generated report
-        # Load data from the input file
+        #Main function to generate the report from client data.
+        #Reads input, processes data, and writes the report to a file.
+        input_file = 'clients.csv'
+        output_file = 'reports.csv'
+
         try:
-            with open(input_file, 'r', encoding='utf-8') as file:
-                for line in file:
-                    line = line.strip()  # Remove any leading/trailing whitespace
-                    if line:  # Ensure the line is not empty
-                        # Split the line into components based on the delimiter ';'
-                        name, country, gender, age_group, satisfaction, date = line.split(';')
+            # Step 1: Read and Process Input Data
+            self.read_client_data(input_file)
 
-                        # Initialize country data if it does not exist in the dictionary
-                        if country not in self.data:
-                            self.data[country] = {
-                                'clients': set(),  # Set to store unique client names (no duplicates)
-                                'satisfactions': []  # List to store satisfaction ratings
-                            }
-                        # Add client name and satisfaction rating to the respective country
-                        self.data[country]['clients'].add(name)  # Add unique client name
-                        self.data[country]['satisfactions'].append(satisfaction)  # Add satisfaction rating
+            # Step 2: Generate Report
+            report = self.create_country_report()
 
-            # Generate the report data
-            report = []  # List to hold report entries
-            for country, info in self.data.items():
-                num_visits = len(info['clients'])  # Count unique visitors for this country
-                ratings = info['satisfactions']  # Get satisfaction ratings for this country
-                # Determine max, min, and mode ratings using helper functions
-                max_rating = max(ratings, key=self.map_satisfaction) if ratings else None
-                min_rating = min(ratings, key=self.map_satisfaction) if ratings else None
-                mode_rating = self.calculate_mode(ratings)
-                # Append the report entry for this country
-                report.append([country, num_visits, max_rating, min_rating, mode_rating])
+            # Step 3: Write Report to File
+            self.write_report_to_file(report, output_file)
+
             print("Report generated successfully.")
-            # Save the report to the output file
-            with open(output_file, 'w', encoding='utf-8') as file:
-                # Write the header for the report file
-                file.write('Country;Number of Visits;Max Rating;Min Rating;Mode\n')
-                for entry in report:
-                    file.write(';'.join(map(str, entry)) + '\n')  # Write each entry as a new line
+
         except FileNotFoundError:
-            print(f"Error: The file '{input_file}' was not found.")  # Handle case where input file doesn't exist
+            print(f"Error: The file '{input_file}' was not found.")
         except Exception as e:
-            print(f"An error occurred: {e}")  # Catch-all for any other exceptions
+            print(f"An error occurred: {e}")
+
+    # Reads client data from the input file and processes each line.
+    def read_client_data(self, input_file):
+        with open(input_file, 'r', encoding='utf-8') as file:
+            for line in file:
+                if line.strip():  # Ignore empty lines
+                    # Split the line and extract relevant information
+                    name, country, _, _, satisfaction, _ = line.strip().split(';')
+                    self.update_country_data(country, name, satisfaction)
+
+    # Updates the data structure with client information for each country.
+    def update_country_data(self, country, name, satisfaction):
+        # Initialize country data if it doesn't exist
+        if country not in self.data:
+            self.data[country] = {'clients': set(), 'satisfactions': []}
+
+        # Add client name to set (ensures uniqueness) and satisfaction to list
+        self.data[country]['clients'].add(name)
+        self.data[country]['satisfactions'].append(satisfaction)
+
+    # Generates the report data for each country.
+    def create_country_report(self):
+        report = []
+        for country, info in self.data.items():
+            num_visits = len(info['clients'])
+            ratings = info['satisfactions']
+            report_entry = [
+                country,
+                num_visits,
+                max(ratings, key=self.map_satisfaction) if ratings else None,
+                min(ratings, key=self.map_satisfaction) if ratings else None,
+                self.calculate_mode(ratings)
+            ]
+            report.append(report_entry)
+        return report
+
+    # Writes the generated report to the output file.
+    def write_report_to_file(self, report, output_file):
+        with open(output_file, 'w', encoding='utf-8') as file:
+            # Write header
+            file.write('Country;Number of Visits;Max Rating;Min Rating;Mode\n')
+            # Write each report entry
+            for entry in report:
+                file.write(';'.join(map(str, entry)) + '\n')
 
     def calculate_mode(self, ratings):
-        if not ratings:  # If there are no ratings available
-            return None  # Return None
-        frequency_count = {}  # Dictionary to count occurrences of each rating
-        for rating in ratings:  # Iterate through each rating in the list
-            frequency_count[rating] = frequency_count.get(rating, 0) + 1  # Increment count for this rating
-        # Find and return the rating with the maximum frequency (the mode)
-        mode = max(frequency_count.items(), key=lambda item: item[1])[0]
+        # Check if ratings list is empty
+        if not ratings:
+            return None
+
+        # Count the frequency of each rating
+        frequency_count = {}
+        for rating in ratings:
+            if rating in frequency_count:
+                frequency_count[rating] += 1
+            else:
+                frequency_count[rating] = 1
+
+        # Find the rating with the highest frequency
+        mode = None
+        max_frequency = 0
+        for rating, count in frequency_count.items():
+            if count > max_frequency:
+                mode = rating
+                max_frequency = count
         return mode
 
     def map_satisfaction(self, satisfaction):
