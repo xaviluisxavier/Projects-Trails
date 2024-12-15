@@ -31,7 +31,7 @@ class ReportsManager:
                         countries.append(data[0])  # Add country name to countries list
                         visits.append(int(data[1]))  # Convert number of visits to int and add to visits list
 
-                        # Store rating data (only once)
+                        # Store rating data
                         if max_rating is None:  # If max_rating hasn't been set yet
                             max_rating = data[2]  # Set max_rating from data
                         if min_rating is None:  # If min_rating hasn't been set yet
