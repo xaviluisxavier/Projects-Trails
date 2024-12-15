@@ -7,7 +7,7 @@ class ReportsManager:
     def create_graph(self) -> None:
         try:
             # Initialize lists and variables to store data
-            month = []  # List to hold country names
+            month = []  # List to hold month names
             visits = []     # List to hold number of visits corresponding to each country
             max_rating = None  # Variable to store the maximum rating (initialized to None)
             min_rating = None  # Variable to store the minimum rating (initialized to None)
@@ -28,7 +28,7 @@ class ReportsManager:
                 for line in file:
                     if line.strip():  # Skip empty lines
                         data = line.strip().split(';')  # Split line into individual data fields
-                        month.append(data[0])  # Add country name to countries list
+                        month.append(data[0])  # Add month name to countries list
                         visits.append(int(data[1]))  # Convert number of visits to int and add to visits list
 
                         # Store rating data
