@@ -50,7 +50,7 @@ class ReportsManager:
 
             # Set title and labels for the plot
             plt.title('Number of Visits by Months')
-            plt.xlabel('Month')
+            plt.xlabel('Months')
             plt.ylabel('Number of Visits')
             plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
             plt.grid(axis='y', linestyle='--', alpha=0.7)  # Add horizontal grid lines for better visualization

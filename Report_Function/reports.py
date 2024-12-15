@@ -32,13 +32,22 @@ class ActivityReport:
             print(f"An error occurred: {e}")
 
     def read_client_data(self, input_file):
-        # Open and read the input file
+        # Open the input file for reading with UTF-8 encoding
         with open(input_file, 'r', encoding='utf-8') as file:
+            next(file)  # Skip the header row if present
+            # Iterate through each line in the file
             for line in file:
-                if line.strip():  # Ignore empty lines
-                    # Split the line and extract relevant information
-                    name, _, _, _, satisfaction, date = line.strip().split(';')
+                # Split the line into fields using ';' as the delimiter and strip whitespace
+                fields = line.strip().split(';')
+                # Check if there are at least 6 fields to avoid index errors
+                if len(fields) >= 6:
+                    # Extract relevant information: name, satisfaction rating, and date
+                    name = fields[0]  # Client's name
+                    satisfaction = fields[4]  # Satisfaction rating
+                    date = fields[5]  # Date of the entry
+                    # Convert the date to a month string using the get_month method
                     month = self.get_month(date)
+                    # Update the monthly data with the extracted information
                     self.update_monthly_data(month, name, satisfaction)
 
     def get_month(self, date_string):
@@ -49,10 +58,10 @@ class ActivityReport:
     def update_monthly_data(self, month, name, satisfaction):
         # Initialize month data if it doesn't exist
         if month not in self.data:
-            self.data[month] = {'clients': set(), 'satisfactions': []}
+            self.data[month] = {'clients': 0, 'satisfactions': []}
 
         # Add client name to set (ensures uniqueness) and satisfaction to list
-        self.data[month]['clients'].add(name)
+        self.data[month]['clients'] += 1
         self.data[month]['satisfactions'].append(satisfaction)
 
     def create_monthly_report(self):
@@ -60,7 +69,7 @@ class ActivityReport:
         report = []
         # Iterate through each month's data
         for month, info in self.data.items():
-            num_visits = len(info['clients'])
+            num_visits = info['clients']
             ratings = info['satisfactions']
             # Create a report entry for each month
             report_entry = [
