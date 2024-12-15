@@ -7,7 +7,7 @@ class ReportsManager:
     def create_graph(self) -> None:
         try:
             # Initialize lists and variables to store data
-            countries = []  # List to hold country names
+            month = []  # List to hold country names
             visits = []     # List to hold number of visits corresponding to each country
             max_rating = None  # Variable to store the maximum rating (initialized to None)
             min_rating = None  # Variable to store the minimum rating (initialized to None)
@@ -19,7 +19,7 @@ class ReportsManager:
                 header = file.readline().strip().split(';')
 
                 # Validate the header format to ensure it matches expected columns
-                if len(header) < 5 or header[0] != "Country" or header[1] != "Number of Visits" or \
+                if len(header) < 5 or header[0] != "Month" or header[1] != "Number of Visits" or \
                         header[2] != "Max Rating" or header[3] != "Min Rating" or header[4] != "Mode":
                     print("Error: The header of the file does not match the expected format.")
                     return  # Exit if header validation fails
@@ -28,7 +28,7 @@ class ReportsManager:
                 for line in file:
                     if line.strip():  # Skip empty lines
                         data = line.strip().split(';')  # Split line into individual data fields
-                        countries.append(data[0])  # Add country name to countries list
+                        month.append(data[0])  # Add country name to countries list
                         visits.append(int(data[1]))  # Convert number of visits to int and add to visits list
 
                         # Store rating data
@@ -40,17 +40,17 @@ class ReportsManager:
                             mode = data[4]      # Set mode from data
 
             # Check if there's enough data to create the graph
-            if not countries or not visits:  # If either list is empty
+            if not month or not visits:  # If either list is empty
                 print("Not enough data to create the graph.")
                 return  # Exit if there isn't enough data
 
             # Create the plot using matplotlib
             plt.figure(figsize=(10, 6))  # Set the figure size for the plot
-            plt.bar(countries, visits, color='red', alpha=0.7)  # Create a bar chart
+            plt.bar(month, visits, color='red', alpha=0.7)  # Create a bar chart
 
             # Set title and labels for the plot
-            plt.title('Number of Visits by Country')
-            plt.xlabel('Country')
+            plt.title('Number of Visits by Months')
+            plt.xlabel('Month')
             plt.ylabel('Number of Visits')
             plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
             plt.grid(axis='y', linestyle='--', alpha=0.7)  # Add horizontal grid lines for better visualization

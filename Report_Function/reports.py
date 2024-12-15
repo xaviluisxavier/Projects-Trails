@@ -1,11 +1,13 @@
+# Import the datetime module to handle date operations
+from datetime import datetime
+
 class ActivityReport:
     def __init__(self):
-        # Initialize an empty dictionary to hold data for each country
+        # Initialize an empty dictionary to hold data for each month/season
         self.data = {}
 
     def generate_report(self):
-        #Main function to generate the report from client data.
-        #Reads input, processes data, and writes the report to a file.
+        # Define input and output file names
         input_file = 'clients.csv'
         output_file = 'reports.csv'
 
@@ -14,45 +16,55 @@ class ActivityReport:
             self.read_client_data(input_file)
 
             # Step 2: Generate Report
-            report = self.create_country_report()
+            report = self.create_monthly_report()
 
             # Step 3: Write Report to File
             self.write_report_to_file(report, output_file)
 
+            # Print success message
             print("Report generated successfully.")
 
         except FileNotFoundError:
+            # Handle case where input file is not found
             print(f"Error: The file '{input_file}' was not found.")
         except Exception as e:
+            # Handle any other exceptions that might occur
             print(f"An error occurred: {e}")
 
-    # Reads client data from the input file and processes each line.
     def read_client_data(self, input_file):
+        # Open and read the input file
         with open(input_file, 'r', encoding='utf-8') as file:
             for line in file:
                 if line.strip():  # Ignore empty lines
                     # Split the line and extract relevant information
-                    name, country, _, _, satisfaction, _ = line.strip().split(';')
-                    self.update_country_data(country, name, satisfaction)
+                    name, _, _, _, satisfaction, date = line.strip().split(';')
+                    month = self.get_month(date)
+                    self.update_monthly_data(month, name, satisfaction)
 
-    # Updates the data structure with client information for each country.
-    def update_country_data(self, country, name, satisfaction):
-        # Initialize country data if it doesn't exist
-        if country not in self.data:
-            self.data[country] = {'clients': set(), 'satisfactions': []}
+    def get_month(self, date_string):
+        # Convert date string to datetime object and extract month
+        date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+        return date_obj.strftime('%B')  # Return month name
+
+    def update_monthly_data(self, month, name, satisfaction):
+        # Initialize month data if it doesn't exist
+        if month not in self.data:
+            self.data[month] = {'clients': set(), 'satisfactions': []}
 
         # Add client name to set (ensures uniqueness) and satisfaction to list
-        self.data[country]['clients'].add(name)
-        self.data[country]['satisfactions'].append(satisfaction)
+        self.data[month]['clients'].add(name)
+        self.data[month]['satisfactions'].append(satisfaction)
 
-    # Generates the report data for each country.
-    def create_country_report(self):
+    def create_monthly_report(self):
+        # Initialize an empty list to store report entries
         report = []
-        for country, info in self.data.items():
+        # Iterate through each month's data
+        for month, info in self.data.items():
             num_visits = len(info['clients'])
             ratings = info['satisfactions']
+            # Create a report entry for each month
             report_entry = [
-                country,
+                month,
                 num_visits,
                 max(ratings, key=self.map_satisfaction) if ratings else None,
                 min(ratings, key=self.map_satisfaction) if ratings else None,
@@ -61,39 +73,31 @@ class ActivityReport:
             report.append(report_entry)
         return report
 
-    # Writes the generated report to the output file.
     def write_report_to_file(self, report, output_file):
+        # Open the output file and write the report
         with open(output_file, 'w', encoding='utf-8') as file:
             # Write header
-            file.write('Country;Number of Visits;Max Rating;Min Rating;Mode\n')
+            file.write('Month;Number of Visits;Max Rating;Min Rating;Mode\n')
             # Write each report entry
             for entry in report:
                 file.write(';'.join(map(str, entry)) + '\n')
 
     def calculate_mode(self, ratings):
-        # Check if ratings list is empty
+        # Return None if the ratings list is empty
         if not ratings:
             return None
 
         # Count the frequency of each rating
         frequency_count = {}
         for rating in ratings:
-            if rating in frequency_count:
-                frequency_count[rating] += 1
-            else:
-                frequency_count[rating] = 1
+            frequency_count[rating] = frequency_count.get(rating, 0) + 1
 
-        # Find the rating with the highest frequency
-        mode = None
-        max_frequency = 0
-        for rating, count in frequency_count.items():
-            if count > max_frequency:
-                mode = rating
-                max_frequency = count
+        # Find and return the mode (rating with highest frequency)
+        mode = max(frequency_count, key=frequency_count.get)
         return mode
 
     def map_satisfaction(self, satisfaction):
-        # Define a mapping from satisfaction strings to numerical values
+        # Define a mapping of satisfaction ratings to numerical values
         mapping = {
             'Very Satisfied': 5,
             'Satisfied': 4,
@@ -101,5 +105,5 @@ class ActivityReport:
             'Unsatisfied': 2,
             'Very Unsatisfied': 1,
         }
-        # Return the corresponding numeric value for the satisfaction level; default to 0 if not found
+        # Return the mapped value or 0 if not found
         return mapping.get(satisfaction, 0)
