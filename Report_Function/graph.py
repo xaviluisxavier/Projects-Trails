@@ -46,7 +46,7 @@ class ReportsManager:
 
             # Create the plot using matplotlib
             plt.figure(figsize=(10, 6))  # Set the figure size for the plot
-            bars = plt.bar(countries, visits, color='red', alpha=0.7)  # Create a bar chart
+            plt.bar(countries, visits, color='red', alpha=0.7)  # Create a bar chart
 
             # Set title and labels for the plot
             plt.title('Number of Visits by Country')
