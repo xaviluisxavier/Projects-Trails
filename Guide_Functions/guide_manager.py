@@ -10,9 +10,8 @@ class Guide_Manager:
     def add_guide(filename: str):
         # Prompt user for the guide's ID
         id = input("Enter guide's ID: ")
-
         # Check if the ID already exists in the file
-        with open(filename, 'r',encoding = "utf-8") as file:
+        with open(filename, 'r', encoding="utf-8") as file:
             if id in file.read():
                 print("ID already exists. Please try again.")
                 return
@@ -24,22 +23,27 @@ class Guide_Manager:
         email = input("Enter the guide's email: ")
         languages = input("Enter languages (separated by ,): ").split(',')
         availability = input("Enter availability (separated by ,): ").split(',')
-
-        # Create a new Guide instance with the collected information
-        new_guide = g.Guide(id, name, experience, number, email,
-                            [lang.strip() for lang in languages],  # Strip whitespace from language entries
-                            [day.strip() for day in availability])  # Strip whitespace from availability entries
-
+        # Create a new guide dictionary directly
+        new_guide = {
+            "id": id,
+            "name": name,
+            "experience": experience,
+            "contact": {
+                "number": number,
+                "email": email
+            },
+            "languages": [lang.strip() for lang in languages],
+            "availability": [day.strip() for day in availability]
+        }
         # Load existing guides and add the new guide
-        with open(filename, 'r' ,encoding = "utf-8") as file:
+        with open(filename, 'r', encoding="utf-8") as file:
             guides_data = json.load(file)
 
-        guides_data.append(new_guide.__dict__)  # Append the new guide's dictionary representation to the list
+        guides_data.append(new_guide)  # Append the new guide dictionary directly
 
         # Save changes back to the file
-        with open(filename, 'w' ,encoding = "utf-8") as file:
+        with open(filename, 'w', encoding="utf-8") as file:
             json.dump(guides_data, file, indent=4)
-
         print("Guide added successfully!")
 
     @staticmethod

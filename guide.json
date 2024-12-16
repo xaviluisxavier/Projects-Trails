@@ -17,7 +17,7 @@
         ]
     },
     {
-        "id": "3",
+        "id": "2",
         "name": "Miguel",
         "experience": 6,
         "contact": {
@@ -31,23 +31,6 @@
         "availability": [
             "segunda",
             "sexta"
-        ]
-    },
-    {
-        "id": "4",
-        "name": "americo",
-        "experience": 10,
-        "contact": {
-            "number": "999999997",
-            "email": "americo@gmail.com"
-        },
-        "languages": [
-            "pt",
-            "en"
-        ],
-        "availability": [
-            "segunda",
-            "terça"
         ]
     }
 ]
