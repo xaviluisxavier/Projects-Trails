@@ -1,3 +1,5 @@
 Month;Number of Visits;Max Rating;Min Rating;Mode
-December;3;Very Satisfied;Satisfied;Satisfied
-January;1;Very Satisfied;Very Satisfied;Very Satisfied
+December;3;Very Satisfied;Undecided;Satisfied
+November;1;Satisfied;Satisfied;Satisfied
+January;1;Very Unsatisfied;Very Unsatisfied;Very Unsatisfied
+October;1;Very Satisfied;Very Satisfied;Very Satisfied

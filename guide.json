@@ -15,5 +15,22 @@
             "sexta",
             "sabado"
         ]
+    },
+    {
+        "id": "3",
+        "name": "Miguel",
+        "experience": 6,
+        "contact": {
+            "number": "910957222",
+            "email": "miguel@gmail.com"
+        },
+        "languages": [
+            "pt",
+            "ru"
+        ],
+        "availability": [
+            "segunda",
+            "sexta"
+        ]
     }
 ]

@@ -24,6 +24,7 @@ class ActivityReport:
             # Print success message
             print("Report generated successfully.")
 
+
         except FileNotFoundError:
             # Handle case where input file is not found
             print(f"Error: The file '{input_file}' was not found.")
@@ -90,6 +91,8 @@ class ActivityReport:
             # Write each report entry
             for entry in report:
                 file.write(';'.join(map(str, entry)) + '\n')
+        print(f"New entrys: \n{entry}")
+
 
     def calculate_mode(self, ratings):
         # Return None if the ratings list is empty
@@ -116,3 +119,4 @@ class ActivityReport:
         }
         # Return the mapped value or 0 if not found
         return mapping.get(satisfaction, 0)
+
