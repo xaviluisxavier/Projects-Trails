@@ -11,45 +11,61 @@ class Guide:
         self.languages = languages
         self.availability = availability
 
-    # Property decorators for read-only access to attributes
-    @property
-    def id(self):
+    # Getter methods
+    def get_id(self) -> str:
         return self.id
 
-    # Property decorator with setter for id attribute
-    @id.setter
-    def id(self, value):
-        self.id = value
-
-    @property
-    def name(self):
+    def get_name(self) -> str:
         return self.name
 
-    @property
-    def experience(self):
+    def get_experience(self) -> int:
         return self.experience
 
-    @property
-    def contact(self):
+    def get_contact(self) -> dict:
         return self.contact
 
-    @property
-    def languages(self):
+    def get_languages(self) -> list:
         return self.languages
 
-    @property
-    def availability(self):
+    def get_availability(self) -> list:
         return self.availability
 
+    # Setter methods
+    def set_id(self, id: str) -> None:
+        self.id = id
+        return None
+
+    def set_name(self, name: str) -> None:
+        self.name = name
+        return None
+
+    def set_experience(self, experience: int) -> None:
+        self.experience = experience
+        return None
+
+    def set_contact(self, number: str, email: str) -> None:
+        self.contact = {"number": number, "email": email}
+        return None
+
+    def set_languages(self, languages: list) -> None:
+        self.languages = languages
+        return None
+
+    def set_availability(self, availability: list) -> None:
+        self.availability = availability
+        return None
+
     # Method to update contact information
-    def update_contact(self, number: str, email: str):
-        self.contact["number"] = number
-        self.contact["email"] = email
+    def update_contact(self, number: str, email: str) -> None:
+        self.set_contact(number, email)
+        return None
 
     # Method to update languages
-    def update_languages(self, languages: list):
-        self.languages = languages
+    def update_languages(self, languages: list) -> None:
+        self.set_languages(languages)
+        return None
 
     # Method to update availability
-    def update_availability(self, availability: list):
-        self.availability = availability
+    def update_availability(self, availability: list) -> None:
+        self.set_availability(availability)
+        return None

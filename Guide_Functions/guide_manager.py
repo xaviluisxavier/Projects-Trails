@@ -12,7 +12,7 @@ class Guide_Manager:
         id = input("Enter guide's ID: ")
 
         # Check if the ID already exists in the file
-        with open(filename, 'r') as file:
+        with open(filename, 'r',encoding = "utf-8") as file:
             if id in file.read():
                 print("ID already exists. Please try again.")
                 return
@@ -31,13 +31,13 @@ class Guide_Manager:
                             [day.strip() for day in availability])  # Strip whitespace from availability entries
 
         # Load existing guides and add the new guide
-        with open(filename, 'r') as file:
+        with open(filename, 'r' ,encoding = "utf-8") as file:
             guides_data = json.load(file)
 
         guides_data.append(new_guide.__dict__)  # Append the new guide's dictionary representation to the list
 
         # Save changes back to the file
-        with open(filename, 'w') as file:
+        with open(filename, 'w' ,encoding = "utf-8") as file:
             json.dump(guides_data, file, indent=4)
 
         print("Guide added successfully!")
@@ -49,7 +49,7 @@ class Guide_Manager:
         idAux = input("Enter the guide's id: ")
 
         # Load existing guides from JSON file
-        with open(filename, 'r') as file:
+        with open(filename, 'r',encoding = "utf-8") as file:
             guides_data = json.load(file)
 
         found = False  # Flag to check if the guide was found
@@ -60,7 +60,7 @@ class Guide_Manager:
                 if answer.lower() == 'y':
                     guides_data.remove(guide)
                     # Save updated list back to JSON file
-                    with open(filename, 'w') as file:
+                    with open(filename, 'w',encoding = "utf-8") as file:
                         json.dump(guides_data, file, indent=4)
                     print("Guide removed successfully!")
                 else:
@@ -80,14 +80,14 @@ class Guide_Manager:
         option = input("Choose an option: ")
 
         if option == "1":  # View all guides
-            with open(filename, "r") as file:
+            with open(filename, "r",encoding = "utf-8") as file:
                 guides_data = json.load(file)
             for guide in guides_data:
                 print(json.dumps(guide, indent=4))  # Print each guide's details in a formatted way
 
         elif option == "2":  # View a specific guide
             idAux = input("Enter the guide's ID that you want to see: ")
-            with open(filename, "r") as file:
+            with open(filename, "r",encoding = "utf-8") as file:
                 guides_data = json.load(file)
             for guide in guides_data:
                 if guide['id'] == idAux:
@@ -107,7 +107,7 @@ class Guide_Manager:
     def update_guide(filename: str):
         idAux = input("Enter the guide's ID that you want to update: ")
 
-        with open(filename, 'r') as file:
+        with open(filename, 'r',encoding = "utf-8") as file:
             guides_data = json.load(file)
 
         found = False
@@ -147,7 +147,7 @@ class Guide_Manager:
                     guide['availability'] = [day.strip() for day in new_value]
 
                 # Save updated guide data back to the file
-                with open(filename, 'w') as file:
+                with open(filename, 'w',encoding = "utf-8") as file:
                     json.dump(guides_data, file, indent=4)
 
                 print("Guide updated successfully!")
