@@ -5,7 +5,7 @@ c = Clients  # Create an instance of the Clients class
 
 class Clients_Manager:
     def __init__(self, ts="trails.csv", vs="clients.csv") -> None:
-        #Initialize the Clients_Manager with default trail and client file names.
+        #Initialize the Clients_Manager with trail and client file names.
         self.Visits = vs  # Set the filename for client visits
         self.trails = ts  # Set the filename for trails
 
