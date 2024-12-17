@@ -3,7 +3,7 @@ from datetime import datetime
 
 class ActivityReport:
     def __init__(self):
-        # Initialize an empty dictionary to hold data for each month/season
+        # Initialize an empty dictionary to hold data for each month
         self.data = {}
 
     def generate_report(self):
